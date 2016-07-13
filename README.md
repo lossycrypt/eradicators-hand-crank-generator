@@ -27,36 +27,30 @@ This mod is also intended as a small example for new modders who wish to know ho
 # Changelog
 
 1.0.4 (2016-07-14):
-
-  Fixed crash when attempting to crank entities without unit_number (ore, trees).
-  
-  Some minor adjustments to hcg detection logic.
-  
-  Made code available on github.
+  - Fixed crash when attempting to crank entities without unit_number (ore, trees).
+  - Some minor adjustments to hcg detection logic.
+  - Made code available on github.
 
 1.0.3 (2016-07-12):
-
-  The HCG can now be connected to circuits.
-  
-  Slight tweaks to the localization.
-  
-  Crank delay is now per generator.
+  - The HCG can now be connected to circuits.
+  - Slight tweaks to the localization.
+  - Crank delay is now per generator.
 
 1.0.2 (2016-07-12):
-  Fixed wrong version in info.json
+  - Fixed wrong version in info.json
 
 1.0.1 (2016-07-12):
-  Updated some comments. No actual code changes.
+  - Updated some comments. No actual code changes.
 
 1.0.0 (2016-07-12): 
-  Initial feature complete totally bugfree release. YARLY.
+  - Initial feature complete totally bugfree release. YARLY.
 
 # Config capabilities
 
-run_time_in_seconds           = 300   --how long it runs when fully cranked
-run_time_per_crank_in_seconds = 10
-crank_delay_in_ticks          = 20    --how often you can crank it
-power_output_in_watts         = 20000
-start_with_item_in_quickbar   = true  --if it should be in the quickbar or inventory
-can_pick_up                   = false --if you want to move it again
-game_speed                    = 1     --for people who don't play at default game.speed[/spoiler]
+* run_time_in_seconds           = 300   --how long it runs when fully cranked
+* run_time_per_crank_in_seconds = 10
+* crank_delay_in_ticks          = 20    --how often you can crank it
+* power_output_in_watts         = 20000
+* start_with_item_in_quickbar   = true  --if it should be in the quickbar or inventory
+* can_pick_up                   = false --if you want to move it again
+* game_speed                    = 1     --for people who don't play at default game.speed[/spoiler]
