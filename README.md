@@ -1,20 +1,19 @@
 # Summary
 
-Type: Mod / Example
-Name: Hand Crank Generator
-Description: Adds a small manual generator to the starting items.
-License: CC-BY-NC-SA 4.0 (Factorio license applies to factorio assets)
-Version: 1.0.X
-Release: 2016-07-12 (initial)
-Tested-With-Factorio-Version: 0.13.6
-Category: SimpleExtension
-Tags: Hotkey, Localization, Example Mod
-Languages: English, Deutsch, 日本語
+Type: Mod / Example  
+Name: Hand Crank Generator  
+Description: Adds a small manual generator to the starting items.  
+License: CC-BY-NC-SA 4.0 (Factorio license applies to factorio assets)  
+Version: 1.0.X  
+Release: 2016-07-12 (initial)  
+Tested-With-Factorio-Version: 0.13.6  
+Category: SimpleExtension  
+Tags: Hotkey, Localization, Example Mod  
+Languages: English, Deutsch, 日本語  
 
 # Download / Get
-[On the Factorio Forums](https://forums.factorio.com/viewtopic.php?f=97&t=28841)
-
-[On the Factorio Mod Portal](https://mods.factorio.com/mods/eradicator/HandCrankGenerator)
+[Factorio Forums](https://forums.factorio.com/viewtopic.php?f=97&t=28841)  
+[Factorio Mod Portal](https://mods.factorio.com/mods/eradicator/HandCrankGenerator)  
 
 # Description
 
