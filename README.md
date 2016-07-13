@@ -53,4 +53,4 @@ This mod is also intended as a small example for new modders who wish to know ho
 * power_output_in_watts         = 20000
 * start_with_item_in_quickbar   = true  --if it should be in the quickbar or inventory
 * can_pick_up                   = false --if you want to move it again
-* game_speed                    = 1     --for people who don't play at default game.speed[/spoiler]
+* game_speed                    = 1     --for people who don't play at default game.speed
