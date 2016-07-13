@@ -11,6 +11,10 @@ Category: SimpleExtension
 Tags: Hotkey, Localization, Example Mod
 Languages: English, Deutsch, 日本語
 
+# Download / Get
+[On the Factorio Forums](https://forums.factorio.com/viewtopic.php?f=97&t=28841)
+[On the Factorio Mod Portal](https://mods.factorio.com/mods/eradicator/HandCrankGenerator)
+
 # Description
 
 This is a quick mod i made after a joke on the IRC channel and while i work on my bigger mod project.
@@ -23,13 +27,19 @@ This mod is also intended as a small example for new modders who wish to know ho
 # Changelog
 
 1.0.4 (2016-07-14):
+
   Fixed crash when attempting to crank entities without unit_number (ore, trees).
+  
   Some minor adjustments to hcg detection logic.
+  
   Made code available on github.
 
 1.0.3 (2016-07-12):
+
   The HCG can now be connected to circuits.
+  
   Slight tweaks to the localization.
+  
   Crank delay is now per generator.
 
 1.0.2 (2016-07-12):
