@@ -18,7 +18,7 @@ It adds a small generator that you can manually charge by cranking (pressing the
 You only get one at the start of each map and it can only be placed down once.
 This might be useful for low-tech modpacks or the similarly spirited.
 By default it takes 15 seconds to fully crank and then provids 20kW of power for 5 minutes, but these values can easily be changed in the config.
-This mod is also intended as a small example for new modders who wish to know how hotkeys and their localization works. For this purpose the source files have more comments than usual ;).[/spoiler]
+This mod is also intended as a small example for new modders who wish to know how hotkeys and their localization works. For this purpose the source files have more comments than usual ;).
 
 # Changelog
 
