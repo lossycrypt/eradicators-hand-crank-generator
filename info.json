@@ -1,0 +1,9 @@
+{
+  "name": "HandCrankGenerator",
+  "version": "1.0.5",
+  "title": "Hand Crank Generator",
+  "author": "eradicator",
+  "description": "You managed to salvage a manual emergency generator from your spacecraft.",
+  "dependencies": ["base >= 0.13"],
+  "factorio_version": "0.13"
+}
