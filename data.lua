@@ -1,4 +1,6 @@
-hcg = {}; require'config'; local config = hcg; hcg = nil --hack to not require any code in the config file itself
+-- Pre Ingame-ModSettings config code (Factorio version 0.13.x):
+
+-- hcg = {}; require'config'; local config = hcg; hcg = nil --hack to not require any code in the config file itself
 -- available config values read from config.lua:
 -- config.run_time_in_seconds
 -- config.run_time_per_crank_in_seconds
@@ -8,11 +10,25 @@ hcg = {}; require'config'; local config = hcg; hcg = nil --hack to not require a
 -- config.can_pick_up
 -- config.game_speed
 
+-- Ingame-ModSettings adaption wrapper (to keep main code unchanged from 0.13.x version):
+local config = {
+  run_time_in_seconds           = settings.startup.hcg__run_time_in_seconds           .value,
+  run_time_per_crank_in_seconds = settings.startup.hcg__run_time_per_crank_in_seconds .value,
+  crank_delay_in_ticks          = settings.startup.hcg__crank_delay_in_ticks          .value,
+  power_output_in_watts         = settings.startup.hcg__power_output_in_watts         .value,
+  start_with_item_in_quickbar   = settings.startup.hcg__start_with_item_in_quickbar   .value,
+  can_pick_up                   = settings.startup.hcg__can_pick_up                   .value,
+  recipe_enabled                = settings.startup.hcg__recipe_enabled                .value,
+  recipe_is_easy                = settings.startup.hcg__recipe_is_cheap               .value,
+  game_speed                    = settings.startup.hcg__game_speed                    .value,
+}
+
+
 data:extend({
   {
     type = "custom-input",
     name = "hcg-crank-key",
-    key_sequence = "f",
+    key_sequence = "r",
     -- consuming = "script-only"
    
     -- 'consuming'
@@ -26,17 +42,19 @@ data:extend({
     type = "item",
     name = "hand-crank-generator",
     icon = "__HandCrankGenerator__/sprite/hcg_item.png",
-    flags = {"goes-to-quickbar"},
+    icon_size = 32,
+    -- flags = {"goes-to-quickbar"},
+    flags = {"goes-to-main-inventory"},
     subgroup = "energy",
     order = "z",
     place_result = "hand-crank-generator",
     stack_size = 1
   },
-  --[[
+
   {
     type = "recipe",
-    name = "hand-crank-generator",
-    enabled = true, --if the recipie is enabled by default. disabled recipies can later be enabled via technology or scripting.
+    name = "hand-crank-generator-expensive",
+    enabled = true and (config.recipe_enabled and not config.recipe_is_easy) or false, --if the recipe is enabled by default. disabled recipes can later be enabled via technology or scripting.
     ingredients =
     {
       {"electric-engine-unit", 2},
@@ -49,7 +67,22 @@ data:extend({
     -- result_count = 10, --if we don't specify a result count it will default to 1
     energy_required = 30, --time it takes in seconds at crafting speed 1 to make this
   },
-  --]]
+  {
+    type = "recipe",
+    name = "hand-crank-generator-cheap",
+    enabled = true and (config.recipe_enabled and config.recipe_is_easy) or false, -- only enable the recipe if both options are enabled
+    ingredients =
+    {
+      {"iron-gear-wheel"    ,10},
+      {"electronic-circuit" , 2},
+      {"copper-cable"       ,10},
+      {"iron-plate"         , 5},
+      {"copper-plate"       , 5},
+    },
+    result = "hand-crank-generator",
+    energy_required = 90, --time it takes in seconds at crafting speed 1 to make this
+  },
+
 })
 
 data:extend{
@@ -57,6 +90,7 @@ data:extend{
     type = "accumulator",
     name = "hand-crank-generator", --copied accumulator prototype from base game and removed parts we don't need
     icon = "__HandCrankGenerator__/sprite/hcg_item.png",
+    icon_size = 32,
     flags = {"placeable-neutral", "player-creation"},
     -- minable = {hardness = 0.2, mining_time = 0.5, result = "hand-crank-generator"}, --done per config at the bottom
     max_health = 50,

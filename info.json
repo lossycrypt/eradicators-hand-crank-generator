@@ -1,9 +1,9 @@
 {
   "name": "HandCrankGenerator",
-  "version": "1.0.4",
+  "version": "16.12.01",
   "title": "Hand Crank Generator",
   "author": "eradicator",
-  "description": "You managed to salvage a manual emergency generator from your spacecraft.",
-  "dependencies": ["base >= 0.13"],
-  "factorio_version": "0.13"
+  "description": "You managed to salvage a manual emergency generator from your spacecraft. (Now with in-game mod settings.)",
+  "dependencies": ["base >= 0.16.12"],
+  "factorio_version": "0.16"
 }
