@@ -1,9 +1,13 @@
 {
-  "name": "HandCrankGenerator",
-  "version": "16.12.01",
-  "title": "Hand Crank Generator",
-  "author": "eradicator",
-  "description": "You managed to salvage a manual emergency generator from your spacecraft. (Now with in-game mod settings.)",
-  "dependencies": ["base >= 0.16.12"],
-  "factorio_version": "0.16"
+  "title" : "Eradicator's Hand Crank Generator Deluxe",
+  "name" : "eradicators-hand-crank-generator",
+  "version" : "2.0.5",
+  "author" : "eradicator",
+  "contact" : "Check the mod portal \"Discussions\" tab (link below).",
+  "license" : "Creative Commons Attribution-NoDerivatives 4.0 International License",
+  "factorio_version" : "1.0",
+  "description" : "You managed to salvage a manual emergency generator from your spacecraft. Can be customized with in-game mod settings.\n\n(Languages : English, Deutsch, \u65e5\u672c\u8a9e)",
+  "dependencies" : [
+    "base >= 1.0.0"
+  ]
 }
