@@ -1,0 +1,34 @@
+{
+  "tutorial_description": [
+  
+    "Migration files are used to tell the game when the name",
+    "of an old entity, item, recipe or similar has changed. ",
+    "If you rename a prototype without creating a migration ",
+    "the corresponding entity etc will be deleted the next  ",
+    "time you load the map.                                 ",
+    "This was one of my first mods, so when i made it i     ",
+    "didn't yet know that prefixes are important.           ",
+    "So after adding prefixes to all the names i had to     ",
+    "make sure that old maps do not lose already built HCGs ",
+    "You can also see that there were originally two        ",
+    "recipes, but now that the engine supports recipe       ",
+    "difficulty that's no longer nessecary. So i merge both ",
+    "old ones into the new one.                             ", 
+    "Each line contains a pair [old name, new name]         "
+    
+    ],
+
+
+  "item": [
+    [ "hand-crank-generator"          , "er:hcg-item"   ]
+    ],
+  
+  "recipe": [
+    [ "hand-crank-generator-cheap"    , "er:hcg-recipe" ],
+    [ "hand-crank-generator-expensive", "er:hcg-recipe" ]
+    ],
+  
+  "entity": [
+    [ "hand-crank-generator"          , "er:hcg-entity" ]
+    ]
+}
