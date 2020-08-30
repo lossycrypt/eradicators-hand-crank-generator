@@ -6,7 +6,7 @@ but also fits well into modpacks with delayed electricity availability.
 
 # License:
   
-  CC-BY-NC-SA 4.0 (Factorio license applies to factorio assets)  
+  CC BY-ND 4.0 (Factorio license applies to factorio assets)  
 
 # Languages
 
