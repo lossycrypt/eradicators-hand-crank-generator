@@ -35,7 +35,7 @@
   ]]
 
   
--- First i need to define a few functions that i want to call
+-- First I need to define a few functions that I want to call
 -- when a new map starts or the mod is added to an old map.
   
 -- The default "Freeplay" scenario offers a so called "remote interface"
@@ -47,8 +47,8 @@
 -- If you want to know more about the interface you can read the scenario file at:
 -- Factorio\data\base\scenarios\freeplay\freeplay.lua
 
--- Not every scenario has this interface, so i have to check
--- if it exists! Additionally i also check if the functions i'm going
+-- Not every scenario has this interface, so I have to check
+-- if it exists! Additionally I also check if the functions i'm going
 -- to use exist - in case they change in a future version.
 local function has_expected_freeplay_interface()
   -- Does the interface exist at all?
@@ -67,11 +67,11 @@ local function has_expected_freeplay_interface()
   end
 
   
--- This next functions uses the interface to add the items i want.
--- First i "get" the current list of items, because i don't want to
--- overwrite them, i just want to add to the list! Then i put my items
+-- This next functions uses the interface to add the items I want.
+-- First I "get" the current list of items, because I don't want to
+-- overwrite them, I just want to add to the list! Then I put my items
 -- into the list. If the same item type is already in the list then the
--- larger count will be used. Finally i "set" the altered list back to
+-- larger count will be used. Finally I "set" the altered list back to
 -- the freeplay interface.
 local function add_item_to_freeplay(interface_method,new_items)
   local items = remote.call('freeplay','get_'..interface_method)
@@ -84,7 +84,7 @@ local function add_item_to_freeplay(interface_method,new_items)
   end
 
   
--- So i've defined a few functions now, but i haven't used them yet!
+-- So i've defined a few functions now, but I haven't used them yet!
 -- I will define one final function that glues them together.
   
 local function hcg_initializer()
@@ -93,9 +93,9 @@ local function hcg_initializer()
   -- to be stored in a table called "global". Despite the name
   -- no other mod can access this data.
   
-  -- Because i don't want players to be able to crank the HCG
-  -- as fast as they can hit the button i need to store the time when
-  -- they crank successfully. For that i will need to store
+  -- Because I don't want players to be able to crank the HCG
+  -- as fast as they can hit the button I need to store the time when
+  -- they crank successfully. For that I will need to store
   -- a permanent table. Because hcg_initializer() will run several times
   -- the "or" construct preserves old data if there is any.
   global.last_crank_tick = global.last_crank_tick or {}
@@ -107,31 +107,33 @@ local function hcg_initializer()
     add_item_to_freeplay('created_items',{['er:hcg-item']=1})
     add_item_to_freeplay('debris_items' ,{['er:hcg-item']=1})
 
-  -- If the scenario isn't compatible i try to give it to
-  -- the player directly. And if that fails too i give up.
+  -- If the scenario isn't compatible I try to give it to
+  -- the player directly.
   else
     script.on_event(defines.events.on_player_created,function(e)
       local p = game.players[e.player_index]
       local simple_stack = {name='er:hcg-item', count=1}
-      -- I call p.insert() so i don't have to guess what types
+      -- I call p.insert() so I don't have to guess what types
       -- of inventory a player has.
       if p.can_insert(simple_stack) then
         p.insert(simple_stack)
       else
-        p.print(
-            "[Mod Warning][Eradicator's Hand Crank Generator]:\n"
-          .."You have seem to have no inventory so i couldn't give you an HCG.\n"
-          .."This means you're probably playing an incompatible scenario.\n"
-          .."Feel free to send me a bug report if you think this is not ok. "
-          )
+        --But sometimes everything fails. There are really a lot of 
+        --custom scenarios out there that I will never even see, so
+        --I just give up and tell the player what happend!
+        --Because I don't know what language the player runs factorio in
+        --I have to use a "localized string" to send a message to their
+        --console. The engine will automatically chose the right language.
+        --Special messages like this are defined in /locale/<language>/hcg.cfg.
+        --They can be named anything I like, so I'm using my prefix again.
+        p.print({'er:hcg.could-not-insert-starting-item'})
         end
-      
       
       end)
     end
   end
   
--- Last but not least i tell the engine to run my initializing
+-- Last but not least I tell the engine to run my initializing
 -- function on every new map and on every mod update or change. To keep this
 -- tutorial simple I am using the same function for both events.
 script.on_init(hcg_initializer)
@@ -140,17 +142,17 @@ script.on_configuration_changed(hcg_initializer)
 
 
 -- The basic setup is done, but the HCG still doesn't produce any energy!
--- So the next thing i do is to hook a function into the event that triggers
+-- So the next thing I do is to hook a function into the event that triggers
 -- when the player presses the hotkey. I'll need some utility functions for
 -- for that again.
 
 
--- Because i'll need to access the config values very often i create
+-- Because i'll need to access the config values very often I create
 -- a local cache. This will make cranking a bit less computaionally expensive
--- because i don't have to constantly ask the engine what these values are.
--- If i was using "per-map" or "per-player" settings this would be more complicated
+-- because I don't have to constantly ask the engine what these values are.
+-- If I was using "per-map" or "per-player" settings this would be more complicated
 -- because those can change anytime. Lucky for me "startup" settings never change
--- during control stage so i don't need to worry about that.
+-- during control stage so I don't need to worry about that.
 local function getconfig(name)
   return settings.startup['er:hcg-'..name].value
   end
@@ -161,18 +163,18 @@ local config = {
     getconfig'power-output-in-watts' * getconfig'run-time-per-crank-in-seconds',
   }
 
--- I don't need the distance measurement to be super precise, so i use
--- a computationally cheap but slightly inaccurate algorythm.
+-- I don't need the distance measurement to be super precise, so I use
+-- a computationally cheap but slightly inaccurate algorithm.
 local function manhattan_distance(p,hcg)
   return math.abs(p.position.x-hcg.position.x) + math.abs(p.position.y-hcg.position.y)
   end
 
--- WHEN the moment comes to crank the HCG i first check if the HCG
+-- WHEN the moment comes to crank the HCG I first check if the HCG
 -- can be cranked yet. It's also important to check if the
 -- player is close enough. Without this check it would be possible
 -- to crank from anywhere on the map! For a better experience
--- i also play a vanilla sound effect to indicate if cranking worked.
--- If the player is too far away i display a small flavour text.
+-- I also play a vanilla sound effect to indicate if cranking worked.
+-- If the player is too far away I display a small flavour text.
 -- The current tick is stored per HCG so that in multiplayer it's
 -- not possible to crank the same HCG with more than one player.
 -- The function also returns true or false to make it useable 
@@ -232,7 +234,7 @@ local function try_to_crank(tick,p,hcg)
 -- If cranking fails then the data for that player is removed from the 
 -- rotation. And if there are no players left that are currently cranking
 -- then the handler is un-registered and the data storage cleared.
--- An nil value is much cheaper to detect later than if i simply left
+-- An nil value is much cheaper to detect later than if I simply left
 -- the table empty.
 
 local function auto_cranker(e)
@@ -255,9 +257,9 @@ local function auto_cranker(e)
 -- While unregistering any unused on_tick handlers is better for performance
 -- it's easy to accidentially cause BUGS and DESYNCS in multiplayer if done wrong.
 -- This is because handler status is not stored when the game is saved and loaded.
--- So i have to manually reactivate the handler when the game is loaded, but
+-- So I have to manually reactivate the handler when the game is loaded, but
 -- ONLY IF it had been active anyway. For this the current status of the handler
--- has to be stored in global. Because my handler needs additional data, i simply
+-- has to be stored in global. Because my handler needs additional data, I simply
 -- check if there IS any data to process, and if yes reactivate the handler.
 
 local function try_activate_auto_cranker()
@@ -269,12 +271,12 @@ script.on_load(try_activate_auto_cranker)
 
 -- This function is what initially starts the auto-cranking mechanism by
 -- storing the (player,generator) data to be processed. Because in multiplayer
--- each player should be able to crank only one generator i index the
+-- each player should be able to crank only one generator I index the
 -- data with the player.index - a number unique for each player. That way
 -- if the player starts to crank a different HCG the data for the previous one
 -- will simply be overwritten. I also store the references to the player
 -- and HCG entity so that they are easier to access in the on_nth_tick handler.
--- Because global.auto_crankers is nil when there is nothing to do i also have
+-- Because global.auto_crankers is nil when there is nothing to do I also have
 -- to create a new table if this player is the only one currently auto-cranking.
 -- If there were other players already auto-cranking then the handler is already
 -- running and does not need to be activated again.

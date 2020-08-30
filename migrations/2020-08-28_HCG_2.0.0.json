@@ -6,13 +6,13 @@
     "If you rename a prototype without creating a migration ",
     "the corresponding entity etc will be deleted the next  ",
     "time you load the map.                                 ",
-    "This was one of my first mods, so when i made it i     ",
+    "This was one of my first mods, so when I made it I     ",
     "didn't yet know that prefixes are important.           ",
-    "So after adding prefixes to all the names i had to     ",
+    "So after adding prefixes to all the names I had to     ",
     "make sure that old maps do not lose already built HCGs ",
     "You can also see that there were originally two        ",
     "recipes, but now that the engine supports recipe       ",
-    "difficulty that's no longer nessecary. So i merge both ",
+    "difficulty that's no longer nessecary. So I merge both ",
     "old ones into the new one.                             ", 
     "Each line contains a pair [old name, new name]         "
     

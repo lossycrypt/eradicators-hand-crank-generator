@@ -25,17 +25,22 @@
     
     > HCG = Hand Crank Generator
     
+    > data "stage", settings "stage" = In factorio each "stage" of the startup process
+        is divided into three "phases". I.e. the data stage consists of data.lua,
+        data-updates.lua and data-final-fixes.lua. This mod does not use updates or 
+        final-fixes.
+    
   ]]
 
 
--- First i define three simple functions, one for reading startup settings
+-- First I define three simple functions, one for reading startup settings
 -- and one for creating paths to the .png files for each prototype.
 
--- Everytime i need a "name=" i put a prefix before it, so that
+-- Everytime I need a "name=" I put a prefix before it, so that
 -- Other mods with similar names do not interfere with mine and vice versa.
 -- I use "er:" because my name is eradicator, but that's kinda long.
 -- The prefix can be any string you like. I use a second prefix "hcg-"
--- because i have more than one mod, and this makes it easier to see what
+-- because I have more than one mod, and this makes it easier to see what
 -- belongs where.
 
 local function config(name)
@@ -52,7 +57,7 @@ local function sound(name)
 
  
 
--- To add new prototypes to the game i descripe each prototype in a table.
+-- To add new prototypes to the game I descripe each prototype in a table.
 -- Then each of these tables is put together into one large table, and that large
 -- table is handed to data:extend() which will put it into data.raw where
 -- the game engine can find them.
@@ -71,12 +76,17 @@ data:extend({
     linked_game_control = 'rotate'          ,
     key_sequence        = ''                ,
     
-    -- Here i could block other mods or even vanilla from
-    -- using the same key, but as i'm linking to another
+    -- Here I could block other mods or even vanilla from
+    -- using the same hotkey, but as i'm linking to another
     -- hotkey i'm not doing that. Assigning "nil" in lua
-    -- deletes the value, so this line doesn't actually do anything.
+    -- deletes the value, so this line has the same effect as
+    -- writing nothing at all.
     consuming           =  nil              , 
-    
+
+    -- Properties that have a known default value do not have to be
+    -- specified. The engine will automatically assign the
+    -- default value at the end of the data stage automatically.
+
     -- For reference these are the possible values for "consuming":
 
     -- 'none'       : Default if not defined.
@@ -104,14 +114,14 @@ data:extend({
     -- '__eradicators-hand-crank-generator__/sprite/hcg-item.png'
     
     icon      =  sprite 'hcg-item.png', -- sprite('hcg-item.png')
-    icon_size =  32     ,
+    icon_size =  64     ,
     subgroup  = 'energy',
     order     = 'z'     ,
     
     -- This is the name of the entity to be placed.
     -- For convenience the item, recipe and entity
     -- often have the same name, but this is not required.
-    -- For demonstration purposes i will use explicit
+    -- For demonstration purposes I will use explicit
     -- names here.
     place_result = 'er:hcg-entity',
     stack_size   =  1      ,
@@ -125,7 +135,7 @@ data:extend({
 -- mod the player only gets a single HCG. But because some people might want
 -- more than one there is a "mod setting" that enables a technology and recipe.
 
--- So i have to read the setting and only create the technology and recipe prototypes
+-- So I have to read the setting and only create the technology and recipe prototypes
 -- if the setting is enabled.
 
 if config 'recipe-enabled' then data:extend({
@@ -146,7 +156,7 @@ if config 'recipe-enabled' then data:extend({
       enabled = false,
       
       -- By the way: I put a lot of spaces everywhere so that the content of
-      -- tables aligns better because i find it easier to read, but this is not nessecary.
+      -- tables aligns better because I find it easier to read, but this is not nessecary.
       ingredients = {
         {'iron-gear-wheel'    ,10},
         {'electronic-circuit' , 2},
@@ -199,7 +209,7 @@ if config 'recipe-enabled' then data:extend({
     -- Technology icons are quite large, so it is important
     -- to specify the size. As all icons are squares this is only one number.
     icon = sprite 'hcg-technology.png',
-    icon_size = 256,
+    icon_size = 128,
     
     -- Deciding one a recipe becomes available is an important balancing decision.
     prerequisites = {"electric-energy-distribution-1"},
@@ -243,9 +253,9 @@ if config 'recipe-enabled' then data:extend({
 
 -- Vanilla offers a premade function that makes it very easy to generate the
 -- required data. But in the case of the HCG none of the premade connectors
--- has quite the right angle. So i take the template, make a copy of it and then
+-- has quite the right angle. So I take the template, make a copy of it and then
 -- remove the yellow "base" from the connector so that only the cable attachments
--- remain. If i removed the base without copying the table first it would affect
+-- remain. If I removed the base without copying the table first it would affect
 -- EVERY entity in the game that uses this function afterwards.
 
 -- Vanilla includes the "util" module that has some useful functions.
@@ -259,7 +269,7 @@ no_base_connector_template. connector_shadow = nil --remove base shadow
 local connector = circuit_connector_definitions.create(no_base_connector_template,{{
   -- The "variation" determines in which direction the connector is drawn. I look
   -- at the file "factorio\data\base\graphics\entity\circuit-connector\hr-ccm-universal-04a-base-sequence.png"
-  -- and count from the left top corner starting with 0 to get the angle i want.
+  -- and count from the left top corner starting with 0 to get the angle I want.
   variation     = 25,
   main_offset   = util.by_pixel(7.0, -4.0), -- Converts pixels to tile fractions
   shadow_offset = util.by_pixel(7.0, -4.0), -- automatically for easier shifting.
@@ -267,12 +277,12 @@ local connector = circuit_connector_definitions.create(no_base_connector_templat
   }})
 
 
--- When adding only a single prototype i like to put all the { brackets on one line.
+-- When adding only a single prototype I like to put all the { brackets on one line.
 data:extend{{
 
   -- This is the actual Hand Crank Generator Entity.
   -- Because there is no base prototype that behaves exactly as
-  -- i want i chose a type that is close enough and add
+  -- I want I chose a type that is close enough and add
   -- a control.lua script to control the exact behavior.
 
   -- At the beginning it's easiest to copy the whole prototype
@@ -282,7 +292,7 @@ data:extend{{
     name      = 'er:hcg-entity',
     flags     = {'placeable-neutral', 'player-creation'},
     icon      = sprite 'hcg-item.png',
-    icon_size = 32,
+    icon_size = 64,
 
     -- In earlier versions the HCG could not be picked up once placed - because it was damaged
     -- during the crash landing. But some people complained that that was too inconvenient!
@@ -309,65 +319,94 @@ data:extend{{
       
       -- Because the HCG is technically an accumulator, so it's natural
       -- behavior is to take energy from the grid and store it. But as
-      -- i want it to be only charged by hand i have to prevent that.
+      -- I want it to be only charged by hand I have to prevent that.
       input_flow_limit       = '0kW',
       
-      
       -- The mod settings take numbers, but prototypes must define energy
-      -- related values as strings, so i have to convert them.
+      -- related values as strings, so I have to convert them.
       buffer_capacity        = tostring(
         math.ceil(
           config'run-time-in-seconds' * config'power-output-in-watts'
           )
         )..'J',
         
-        
       output_flow_limit      = tostring(
         config'power-output-in-watts'
         )..'W',
       
       -- Sometimes it's useful to hide the "missing cable" and "no power" icons.
-      -- But i don't need that.
+      -- But I don't need that for HCG.
       -- render_no_network_icon = false,
       -- render_no_power_icon   = false,    
       },
       
+    
+    -- I want the HCG to look fancy! For that I need an animation.
+    -- In factorio and many other sprite-based 2D games animations are
+    -- stored as a single large picture - a so called "sprite sheet".
+    -- This sprite sheet contains all frames of the animation, so i
+    -- have to tell the engine how large each frame is, and how many
+    -- frames there are in total.
+    discharge_animation = {
+      filename        = sprite 'hcg-animation.png',
+      width           = 128,
+      height          = 128,
       
-    picture = {
-      filename = sprite 'hcg.png',
-      priority = 'extra-high',
-      width    = 64,
-      height   = 64,
-      -- Shift is used when the center of the picture is
+      --The sprite sheet has 3 rows with 8 pictures each. So there
+      --are 24 frames in total. But the code is much nicer to read
+      --if I just write this as a formula.
+      line_length     =   8,
+      frame_count     = 3*8,
+      
+      -- Originally vanilla graphics had 32 pixels per 1 tile. But later
+      -- High resolution graphics with 64 pixels per tile were added.
+      -- The HCG is rendered in high resolution, so it has to be shown at half
+      -- the size to fit with the original 32 pixel standard.
+      scale           = 0.5,
+      
+      -- Shift is used when the center of a picture is
       -- not the visual center of the entity. I.e. because
       -- the picture also contains a shadow. Shift values
-      -- are given in tiles. Vanilla graphics have 32 pixels
-      -- per tile in normal resolution and 64 pixels in high resolution.
-      shift    = {0.5, -0.475},
-      },
-      
-    -- The rotating "dis/charge" animation should stop immedeatly if
-    -- the player stops cranking/the hcg is empty. So i set this to one tick.
-    charge_cooldown    = 1,
-    discharge_cooldown = 1,
-
-    discharge_animation = {
-      filename        = sprite 'hcg.png',
-      width           = 64,
-      height          = 64,
-      line_length     = 8,
-      frame_count     = 3*8, --values can be calculated to make the code easier to read.
-      scale           = 1.0,
+      -- are given in tiles.
       shift           = {0.5, -0.475},
-      -- By using a lower animation speed i can have a slow animation
+      
+      -- By using a lower animation speed I can have a slow animation
       -- with fewer frames than i'd need at full speed.
       animation_speed = 0.25, 
       },
       
-    vehicle_impact_sound = {
-      filename = '__base__/sound/car-metal-impact.ogg', volume = 0.65
+    -- The rotating "dis/charge" animation should stop immedeatly if
+    -- the player stops cranking/the hcg is empty. So I set this to one tick.
+    charge_cooldown    = 1,
+    discharge_cooldown = 1,
+    
+    -- Accumulator type entities need a single still image
+    -- for when they're not dis-/charging. But I can just recycle
+    -- the first frame of the animation!
+    picture = {
+      filename = sprite 'hcg-animation.png',
+      priority = 'extra-high',
+      width    = 128,
+      height   = 128,
+      shift    = {0.5, -0.475},
+      scale    = 0.5,
       },
 
+      
+    --Vanilla factorio comes with some predefined sound groups for
+    --when you drive into a building at full speed yet again.
+    
+    --They are stored in a seperate file so I need to load that file.
+    --Normally require() should only be used at the beginning of a
+    --source code file so the result can be used multiple times
+    --throughout the file. I am making an exception here for the sake
+    --of keeping the tutorial in a readable non-confusing order.
+    --You shouldn't do this, but it gives me a chance to show you
+    --that require() behaves like any other function and returns
+    --the result of reading a file. In this case a table of tables,
+    --of which I am only interested in a single sub-table.
+    vehicle_impact_sound = require("__base__/prototypes/entity/demo-sounds")['generic_impact'],
+      
     working_sound = {
       sound = {
         filename = sound  'tank-engine-slow.ogg', --base game sound slowed by 50%
@@ -376,15 +415,15 @@ data:extend{{
       },
         
     -- Some people told me that they'd like to use the HCG as a timer
-    -- so i added circuit connections. But because it's a bonus feature
-    -- i limit the maximum range to just two tiles.
+    -- so I added circuit connections. But because it's a bonus feature
+    -- I limit the maximum range to just two tiles.
     circuit_wire_max_distance     = default_circuit_wire_max_distance,
     
-    -- Here i use the data that i prepared above.
+    -- Here I use the data that I prepared above.
     circuit_wire_connection_point = connector.points ,
     circuit_connector_sprites     = connector.sprites,
 
-    -- For completition i assign a default signal like all
+    -- For completition I assign a default signal like all
     -- vanilla entities do.
     default_output_signal = {type='item', name='er:hcg-item'},
     
@@ -395,7 +434,7 @@ data:extend{{
   
   
 -- As a little bonus: Now that i'm done with setting up everything for
--- an unmodded vanilla games i will add some special behavior if certain
+-- an unmodded vanilla games I will add some special behavior if certain
 -- other mods are installed.
 
 
@@ -408,12 +447,12 @@ data:extend{{
 -- installed and has created a technology named "electricity".
 
 -- After a prototype has been created with data:extend() it can 
--- be accessed in "data.raw". First i store a reference to the
+-- be accessed in "data.raw". First I store a reference to the
 -- technology so the manipulation code is easier to write. Then
--- i change only the attributes that i need to.
+-- I change only the attributes that I need to.
 
--- Because i am changing a technology that i created only a few lines
--- above i know exactly what to expect. But when manipulting prototypes
+-- Because I am changing a technology that I created only a few lines
+-- above I know exactly what to expect. But when manipulting prototypes
 -- that other mods have created care must be taken to not accidentially
 -- overwrite or delete data.
 if mods['aai-industry'] and data.raw.technology['electricity'] then

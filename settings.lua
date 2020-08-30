@@ -15,7 +15,7 @@
 
 
 -- Mod settings make it possible to let the player decide about certain
--- aspects of a mod themselfs. Every setting has to be defined in settings stage.
+-- aspects of a mod themselves. Every setting has to be defined in settings stage.
 -- During data stage you can only read "startup" type settings, while during
 -- control stage you can read all types of settings.
 
@@ -50,8 +50,10 @@ data:extend{
     maximum_value =  10^16        ,
     order         = 'b'           ,
     },
-    
-  --How many ticks must pass between two crankings (default: 20 ticks == 0.3 seconds).
+
+  --How many ticks must pass between two crankings. (default: 20 ticks == 0.333 seconds).
+  --In factorio each real-life second is divided into 60 ticks. This is why the game
+  --is said to run at 60 UPS - 60 Updates per Second.
   { name          = 'er:hcg-crank-delay-in-ticks',
     type          = 'int-setting' ,
     setting_type  = 'startup'     ,

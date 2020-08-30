@@ -8,6 +8,10 @@ The Hand Crank Generator is a small generator that you can salvage from the wrec
 
 Simply hover your mouse cursor over the HCG and press the key that you use to rotate buildings. You have to be pretty close to grab the handle with your short arms!
 
+![Cranky cranking!][animation]
+
+[animation]: https://raw.githubusercontent.com/lossycrypt/eradicators-hand-crank-generator/master/modportal/hcg.gif "The great cranking"
+
 ---
 # Use it for Low Tech Modpacks or as Modding Tutorial
 

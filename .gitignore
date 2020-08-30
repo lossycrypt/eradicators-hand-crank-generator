@@ -7,7 +7,7 @@
 # But descend into directories
 !*/
 
-# Keep these special files
+# Keep these special files (is this correct? not everything starts with a dot=
 !.license.txt
 !.readme.md
 !.changelog.txt
@@ -26,3 +26,5 @@
 !*.png
 !*.ogg
 
+# Block underscore prefixed files
+_*
