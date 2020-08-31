@@ -110,29 +110,28 @@ local function hcg_initializer()
     add_item_to_freeplay('created_items',{['er:hcg-item']=1})
     add_item_to_freeplay('debris_items' ,{['er:hcg-item']=1})
 
-  -- If the scenario isn't compatible I try to give it to
-  -- the player directly.
   else
+    -- If the scenario does NOT have a freeplay-compatible remote interface
+    -- I just print a warning. There are lots of scenarios out there
+    -- and I can't possibly know what they want to achive, so it's better
+    -- not to mess around. Because on multiplayer servers any players
+    -- who "just play there" have no control over the mods used
+    -- it's pointless to warn them. Therefore i only print the message to
+    -- adminstrators - in singleplayer you are always administrator.
+    
+    -- Because I don't know what language the player runs factorio in
+    -- I have to use a "localized string" to send a message to their
+    -- console. The engine will automatically chose the right language.
+    -- Special messages like this are defined in /locale/<language>/hcg.cfg.
+    -- They can be named anything I like, so I'm using my prefix again.
+
     script.on_event(defines.events.on_player_created,function(e)
       local p = game.players[e.player_index]
-      local simple_stack = {name='er:hcg-item', count=1}
-      -- I call p.insert() so I don't have to guess what types
-      -- of inventory a player has.
-      if p.can_insert(simple_stack) then
-        p.insert(simple_stack)
-      else
-        --But sometimes everything fails. There are really a lot of 
-        --custom scenarios out there that I will never even see, so
-        --I just give up and tell the player what happend!
-        --Because I don't know what language the player runs factorio in
-        --I have to use a "localized string" to send a message to their
-        --console. The engine will automatically chose the right language.
-        --Special messages like this are defined in /locale/<language>/hcg.cfg.
-        --They can be named anything I like, so I'm using my prefix again.
-        p.print({'er:hcg.could-not-insert-starting-item'})
+      if p.admin then
+        p.print({'er:hcg.freeplay-interface-not-found'})
         end
-      
       end)
+
     end
   end
   
