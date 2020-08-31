@@ -115,9 +115,9 @@ local function hcg_initializer()
     -- I just print a warning. There are lots of scenarios out there
     -- and I can't possibly know what they want to achive, so it's better
     -- not to mess around. Because on multiplayer servers any players
-    -- who "just play there" have no control over the mods used
-    -- it's pointless to warn them. Therefore i only print the message to
-    -- adminstrators - in singleplayer you are always administrator.
+    -- who "just play there" have no control over the mods used it's pointless
+    -- to spam warnings to them. Therefore i only print the message to
+    -- adminstrators once - in singleplayer you are always administrator.
     
     -- Because I don't know what language the player runs factorio in
     -- I have to use a "localized string" to send a message to their
