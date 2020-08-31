@@ -33,7 +33,6 @@
     > hcg = a references to a HCG entity
     
   ]]
-
   
 -- First I need to define a few functions that I want to call
 -- when a new map starts or the mod is added to an old map.
@@ -118,19 +117,22 @@ local function hcg_initializer()
     -- who "just play there" have no control over the mods used it's pointless
     -- to spam warnings to them. Therefore i only print the message to
     -- adminstrators once - in singleplayer you are always administrator.
-    
+
     -- Because I don't know what language the player runs factorio in
     -- I have to use a "localized string" to send a message to their
     -- console. The engine will automatically chose the right language.
     -- Special messages like this are defined in /locale/<language>/hcg.cfg.
     -- They can be named anything I like, so I'm using my prefix again.
 
-    script.on_event(defines.events.on_player_created,function(e)
-      local p = game.players[e.player_index]
+    for _,p in pairs(game.connected_players) do
       if p.admin then
         p.print({'er:hcg.freeplay-interface-not-found'})
         end
-      end)
+      end
+
+    -- In case nobody is on the server when this happens i'm also going to
+    -- print the message to the log file.
+    log({'er:hcg.freeplay-interface-not-found'})
 
     end
   end
@@ -140,10 +142,6 @@ local function hcg_initializer()
 -- tutorial simple I am using the same function for both events.
 script.on_init(hcg_initializer)
 script.on_configuration_changed(hcg_initializer)
-
-
-error('Currently under construction: ' .. tostring(has_expected_freeplay_interface()))
-
 
 -- The basic setup is done, but the HCG still doesn't produce any energy!
 -- So the next thing I do is to hook a function into the event that triggers
@@ -298,6 +296,7 @@ local function add_auto_cranker(p,hcg)
   
 -- !!
 -- The ADVANCED on_nth_tick section ENDS here.
+-- !!
   
   
   
@@ -326,6 +325,9 @@ script.on_event('er:hcg-crank-key',function(e)
   
 -- Congratulations. You have finished the control statge tutorial!
 
+-- It is important to remember that in Factorio every game behaves as
+-- if it was a multiplayer game. In singleplayer you just happen to 
+-- be the only one who can join the "server".
+
 -- This concludes this tutorial mod and hopefully you are now ready to
 -- go forth and create exciting mods of your own!
-
