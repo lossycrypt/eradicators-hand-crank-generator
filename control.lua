@@ -58,6 +58,9 @@ local function has_expected_freeplay_interface()
     'get_created_items', 'set_created_items', -- change the player starting inventory
     'get_debris_items' , 'set_debris_items' , -- change which of those items spawn in the wreckage
     }
+  -- When iterating though an array often the index is not relevant.
+  -- By convention it is often named with a single _ underscore,
+  -- but it's really still a normal variable that's just never used!
   for _,method in pairs(expected_methods) do
     -- If any of the methods is missing the check fails instantly.
     if not remote.interfaces.freeplay[method] then return false end

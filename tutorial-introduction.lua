@@ -24,7 +24,7 @@ local Introduction = [[
   This tutorial mod covers most basic operations like creating new items,
   recipes, buildings and technologies. In addition control.lua explains how
   to make custom behavior for buildings - namely how to make the
-  hand crank generator produce power when the player presses a button.
+  Hand Crank Generator produce power when the player presses a button.
 
   Have fun!
 

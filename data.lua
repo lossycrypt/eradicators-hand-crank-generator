@@ -164,7 +164,7 @@ if config 'recipe-enabled' then data:extend({
         {'iron-plate'         , 5},
         {'copper-plate'       , 5},
         },
-        
+
       result = 'er:hcg-item',
       
       -- Recipes always produce one item if nothing else is defined.
@@ -178,8 +178,9 @@ if config 'recipe-enabled' then data:extend({
       energy_required = 30,
       },
 
-    
-    -- Here we basically define the recipe again, but with slightly different ingredients.
+    -- Here I define the recipe again, but with slightly different ingredients.
+    -- Most recipes do not need to declare expensive= at all. By default every recipe
+    -- will use the normal= cost cost on both difficulties.
     expensive = {
       enabled = false,
       
@@ -340,6 +341,29 @@ data:extend{{
       -- render_no_power_icon   = false,    
       },
       
+    --Vanilla factorio comes with some predefined sound groups for
+    --when you drive into a building at full speed yet again.
+    
+    --They are stored in a seperate file so I need to load that file.
+    --Normally require() should only be used at the beginning of a
+    --source code file so the result can be used multiple times
+    --throughout the file. I am making an exception here for the sake
+    --of keeping the tutorial in a readable non-confusing order.
+    --You shouldn't do this, but it gives me a chance to show you
+    --that require() behaves like any other function and returns
+    --the result of reading a file. In this case a table of tables,
+    --of which I am only interested in a single sub-table.
+    vehicle_impact_sound = require("__base__/prototypes/entity/demo-sounds")['generic_impact'],
+      
+    --The sound that is played while the HCG is discharging (=producing energy).
+    --The sound for charging is played via control.lua script, but if HCG was a
+    --normal accumulator this sound would be used for charging too.
+    working_sound = {
+      sound = {
+        filename = sound  'tank-engine-slow.ogg', --base game sound slowed by 50%
+        volume = 0.65
+        },
+      },
     
     -- I want the HCG to look fancy! For that I need an animation.
     -- In factorio and many other sprite-based 2D games animations are
@@ -391,32 +415,10 @@ data:extend{{
       shift    = {0.5, -0.475},
       scale    = 0.5,
       },
-
-      
-    --Vanilla factorio comes with some predefined sound groups for
-    --when you drive into a building at full speed yet again.
-    
-    --They are stored in a seperate file so I need to load that file.
-    --Normally require() should only be used at the beginning of a
-    --source code file so the result can be used multiple times
-    --throughout the file. I am making an exception here for the sake
-    --of keeping the tutorial in a readable non-confusing order.
-    --You shouldn't do this, but it gives me a chance to show you
-    --that require() behaves like any other function and returns
-    --the result of reading a file. In this case a table of tables,
-    --of which I am only interested in a single sub-table.
-    vehicle_impact_sound = require("__base__/prototypes/entity/demo-sounds")['generic_impact'],
-      
-    working_sound = {
-      sound = {
-        filename = sound  'tank-engine-slow.ogg', --base game sound slowed by 50%
-        volume = 0.65
-        },
-      },
         
     -- Some people told me that they'd like to use the HCG as a timer
-    -- so I added circuit connections. But because it's a bonus feature
-    -- I limit the maximum range to just two tiles.
+    -- so I added circuit connections. This uses a built-in variable
+    -- to match vanilla standard.
     circuit_wire_max_distance     = default_circuit_wire_max_distance,
     
     -- Here I use the data that I prepared above.
