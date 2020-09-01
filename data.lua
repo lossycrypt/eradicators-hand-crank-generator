@@ -43,10 +43,13 @@
 -- because I have more than one mod, and this makes it easier to see what
 -- belongs where.
 
+-- This allows me to read settings values without repeating my prefix
+-- all the time.
 local function config(name)
   return settings.startup['er:hcg-'..name].value
   end
 
+--And these two make defining common file paths much shorter.
 local function sprite(name)
   return '__eradicators-hand-crank-generator__/sprite/'..name
   end
@@ -440,13 +443,12 @@ data:extend{{
 
 -- Congratulations. You have finished the data statge tutorial!
   
+
+
   
 -- As a little bonus: Now that i'm done with setting up everything for
 -- an unmodded vanilla games I will add some special behavior if certain
 -- other mods are installed.
-
-
-
 
 -- The mod "AAI Industries" restructures the start of the tech tree,
 -- so i'm going to change the prerequisites of the hcg-technology 
@@ -455,14 +457,15 @@ data:extend{{
 -- installed and has created a technology named "electricity".
 
 -- After a prototype has been created with data:extend() it can 
--- be accessed in "data.raw". First I store a reference to the
+-- be accessed via "data.raw". First I store a reference to the
 -- technology so the manipulation code is easier to write. Then
 -- I change only the attributes that I need to.
 
 -- Because I am changing a technology that I created only a few lines
 -- above I know exactly what to expect. But when manipulting prototypes
--- that other mods have created care must be taken to not accidentially
--- overwrite or delete data.
+-- that other mods have created great care must be taken not to
+-- accidentially overwrite or delete data.
+
 if mods['aai-industry'] and data.raw.technology['electricity'] then
   if config 'recipe-enabled' then
     local hcg_technology = data.raw.technology['er:hcg-technology']  
