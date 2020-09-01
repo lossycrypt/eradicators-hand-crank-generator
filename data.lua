@@ -206,33 +206,45 @@ if config 'recipe-enabled' then data:extend({
     icon = sprite 'hcg-technology.png',
     icon_size = 128,
     
-    -- Deciding one a recipe becomes available is an important balancing decision.
-    prerequisites = {"electric-energy-distribution-1"},
+    -- Like recipes, technologies can also have normal and expensive difficulty.
+    -- In mods where both difficulties should have the same recipe there are two
+    -- possible ways to specify this. One is to only specify normal= and leave
+    -- out expensive=. The more commonly used way is to put all properties that would
+    -- go into the normal= subtable directly into the main prototype. I demonstrate
+    -- this approach here by commenting out the normal= sub-table construction [1].
+    -- This is also the way that most vanilla recipes and technologies are specified.
     
-    effects = {
-      { type   = 'unlock-recipe',
-        recipe = 'er:hcg-recipe'
-        },
-        
-      -- The "nothing" effect is used to implement research effects
-      -- that the engine does not support directly. It places a marker
-      -- with a description in the technology menu so that the player
-      -- knows what is going to happen. The actual effect has to be implemented
-      -- by the mod in control stage.
-      { type = 'nothing',
-        effect_description = {'er:hcg.auto-cranking'},
-        },
-        
-      },
+    -- normal = { -- [1] put parameters directly into prototype
       
-    unit = {
-      count = 150,
-      ingredients = {
-        {"automation-science-pack", 1},
-        {"logistic-science-pack"  , 1},
+      -- Deciding when a recipe becomes available is an important balancing decision.
+      prerequisites = {"electric-energy-distribution-1"},
+      
+      effects = {
+        { type   = 'unlock-recipe',
+          recipe = 'er:hcg-recipe'
+          },
+          
+        -- The "nothing" effect is used to implement research effects
+        -- that the engine does not support directly. It places a marker
+        -- with a description in the technology menu so that the player
+        -- knows what is going to happen. The actual effect has to be implemented
+        -- by the mod in control stage.
+        { type = 'nothing',
+          effect_description = {'er:hcg.auto-cranking'},
+          },
+          
         },
-      time = 30,
-      },
+
+      unit = {
+        count = 150,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack"  , 1},
+          },
+        time = 30,
+        },
+        
+      -- }, -- [1] put parameters directly into prototype
     
     order = "c-e-b2",
     },
