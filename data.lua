@@ -118,7 +118,7 @@ data:extend({
     -- For demonstration purposes I will use explicit
     -- names here.
     place_result = 'er:hcg-entity',
-    stack_size   =  1      ,
+    stack_size   =  50            ,
     },
 
   })

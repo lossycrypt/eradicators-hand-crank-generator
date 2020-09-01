@@ -1,0 +1,98 @@
+---------------------------------------------------------------------------------------------------
+Version: 2.0.5
+Date: 2020-08-31
+  Fixes:
+    - To prevent 3rd-party scenario crashes startup items are now only added if there is a freeplay remote interface.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.4
+Date: 2020-08-31
+  Changes:
+    - Some minor additions and corrections to the code tutorial comments.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.3
+Date: 2020-08-31
+  Changes:
+    - Re-rendered HCG and icons in high resolution to fit with factorio vanilla standard.
+    - Some fixes and changes to the tutorial comments (thanks to @Pi-C's advice).
+    - Now uses modern car impact sound (thanks to @Pi-C's advice).
+  Internal:
+    - Added missing localization for could-not-insert-starting-item.
+---------------------------------------------------------------------------------------------------
+Version: 2.0.2
+Date: 2020-08-30
+  Internal:
+    - Uploaded to github and updated readme.md
+---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+Date: 2020-08-29
+  Major Features:
+    - Has to be salvaged from the spaceship wreck now like it should always have been!
+    - The recipe is now unlocked by a technology (can still be disabled in mod settings).
+    - The technology also allows you to continue cranking after the first button press.
+  Modding Tutorial:
+    - Code cleanup to be a better tutorial.
+    - Complete rewrite of code tutorial comments.
+    - Now also demonstrates name migrations.
+    - Just extract the mod zip and start reading!
+  Changes:
+    - Mod setting "allow redeployment" has been removed. You can now always redepoly.
+    - Mod setting "easy recipe" has been removed. Now uses the map setting for recipe difficulty.
+  Internal:
+    - Update to factorio base version 1.0
+    - Large parts of control stage adapted to use factorio 1.0 API
+---------------------------------------------------------------------------------------------------
+Version: 1.8.0
+Date: 2020-02-06
+  Internal:
+    - Updated to factorio base version 0.18.x.
+  Changes:
+    - Mod setting "allow redeployment" is now enabled by default.
+    - Mod setting "enable recipe" is now enabled by default.
+---------------------------------------------------------------------------------------------------
+Version: 1.6.0
+Date: 2019-03-18
+  Changes:
+    - 0.16: Cranking is now hard-linked to the standard "rotate" key and can not be customized seperately anymore.
+    - 0.17: Removed "put into quickbar on startup" mod-option due to base-game change of quickbar paradigm.
+  Internal:
+    - Updated to factorio base version 0.17.x.
+    - 0.16: Cranking sound uses play_sound instead of spawning an invisible explosion.
+    - 0.17: Out-of-range warning now uses local_flying_text instead of console print.
+    - 0.17: Out-of-range warning has an error sound now.
+    - 0.17: Added mod thumbnail.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 2016-07-14
+  Major Features:
+    - Fixed crash when attempting to crank entities without unit_number (ore, trees).
+    - Some minor adjustments to hcg detection logic.
+    - Made code available on github.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 2016-07-12
+  Major Features:
+    - The HCG can now be connected to circuits.
+    - Slight tweaks to the localization.
+    - Crank delay is now per generator.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 2016-07-12
+  Major Features:
+    - Fixed wrong version in info.json
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2016-07-12
+  Major Features:
+    - Updated some tutorial comments. No actual code changes.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2016-07-12
+  Major Features:
+    - Initial feature complete totally bugfree release. YARLY.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+Date: 0000-00-00
+  Todo:
+    - Deprecated old branch on modportal
+    - Updated github repository. Gotta do that every few years ye know... *cough*
+    - readd optional dependency after fixing build script

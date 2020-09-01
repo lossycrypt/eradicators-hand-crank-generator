@@ -7,11 +7,11 @@
 # But descend into directories
 !*/
 
-# Keep these special files (is this correct? not everything starts with a dot=
-!.license.txt
-!.readme.md
-!.changelog.txt
-!.attribution.txt
+# Keep these special files
+!licence.txt
+!readme.md
+!changelog.txt
+!attribution.txt
 !.gitignore
 
 # Keep everything in modportal
