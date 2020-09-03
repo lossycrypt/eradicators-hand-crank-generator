@@ -14,7 +14,15 @@
     "recipes, but now that the engine supports recipe       ",
     "difficulty that's no longer nessecary. So I merge both ",
     "old ones into the new one.                             ", 
-    "Each line contains a pair [old name, new name]         "
+    "Each line contains a pair [old name, new name]         ",
+    
+    "Oh, and btw this description is a hack. The JSON format",
+    "does not support real comments. So i've just added     ",
+    "this table of strings. The engine will generally ignore",
+    "any extra data that it does not expect. That goes for  ",
+    "prototypes too. So if you think you edited something   ",
+    "but it doesn't show up in game it might just be a      ",
+    "spelling mistake!                                      "
     
     ],
 
