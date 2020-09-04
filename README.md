@@ -12,9 +12,10 @@ but also fits well into modpacks with delayed electricity availability.
 
   English, Deutsch, 日本語  
 
-# Download
+# Links
 
 [Factorio Mod Portal](https://mods.factorio.com/mod/eradicators-hand-crank-generator)  
+[Factorio Wiki](https://wiki.factorio.com/Tutorial:Inspecting_a_live_mod)
 
 # Feedback / Bug Reports
 
