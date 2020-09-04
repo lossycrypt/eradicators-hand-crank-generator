@@ -6,6 +6,7 @@
     "If you rename a prototype without creating a migration ",
     "the corresponding entity etc will be deleted the next  ",
     "time you load the map.                                 ",
+    
     "This was one of my first mods, so when I made it I     ",
     "didn't yet know that prefixes are important.           ",
     "So after adding prefixes to all the names I had to     ",

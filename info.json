@@ -1,13 +1,13 @@
 {
-  "title" : "Eradicator's Hand Crank Generator Deluxe",
-  "name" : "eradicators-hand-crank-generator",
-  "version" : "2.0.7",
-  "author" : "eradicator",
-  "contact" : "Check the mod portal \"Discussions\" tab (link below).",
-  "license" : "Creative Commons Attribution-NoDerivatives 4.0 International License",
+  "title"            : "Eradicator's Hand Crank Generator Deluxe",
+  "name"             : "eradicators-hand-crank-generator",
+  "author"           : "eradicator",
+  "version"          : "2.0.8",
   "factorio_version" : "1.0",
-  "description" : "You have salvaged a manual emergency generator from your spacecraft. Perfect timing to get cranky!\n\n(Languages : English, Deutsch, \u65e5\u672c\u8a9e)\n(Contains extensive code comments for aspiring modders.)",
-  "dependencies" : [
+  "contact"          : "Check the mod portal \"Discussions\" tab (link below).",
+  "license"          : "Creative Commons Attribution-NoDerivatives 4.0 International License",
+  "description"      : "You have salvaged a manual emergency generator from your spacecraft. Perfect timing to get cranky!\n\n(Languages : English, Deutsch, \u65e5\u672c\u8a9e)\n(Contains extensive code comments for aspiring modders.)",
+  "dependencies"     : [
     "base >= 1.0.0"
   ]
 }
