@@ -1,24 +1,36 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.9
+Date: 2020-09-04
+  Technical:
+    - Added missing optional dependency to ensure correct load-order
+---------------------------------------------------------------------------------------------------
+Version: 2.0.8
+Date: 2020-09-04
+  Modding Tutorial:
+    - Expanded migrations comment
+---------------------------------------------------------------------------------------------------
 Version: 2.0.7
 Date: 2020-09-03
-  Changes:
+  Modding Tutorial:
     - Added explanation about normal/expensive recipe/technology properties
     - Updated tutorial introduction text to reflect wiki page.
+  Technical:
     - Updated thumbnail
+    - Deprecated old branch on modportal
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.6
 Date: 2020-09-01
-  Fixes:
+  Technical:
     - Fixed theoretical desync situation if scenarios remove remote interfaces at runtime.
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.5
 Date: 2020-08-31
-  Fixes:
+  Technical:
     - To prevent 3rd-party scenario crashes startup items are now only added if there is a freeplay remote interface.
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.4
 Date: 2020-08-31
-  Changes:
+  Modding Tutorial:
     - Some minor additions and corrections to the code tutorial comments.
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.3
@@ -27,13 +39,14 @@ Date: 2020-08-31
     - Re-rendered HCG and icons in high resolution to fit with factorio vanilla standard.
     - Some fixes and changes to the tutorial comments (thanks to @Pi-C's advice).
     - Now uses modern car impact sound (thanks to @Pi-C's advice).
-  Internal:
+  Fixes:
     - Added missing localization for could-not-insert-starting-item.
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.2
 Date: 2020-08-30
-  Internal:
-    - Uploaded to github and updated readme.md
+  Modding Tutorial:
+    - Updated github repository. Gotta do that every few years ye know... *cough*
+    - Updated readme.md
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
 Date: 2020-08-29
@@ -49,13 +62,13 @@ Date: 2020-08-29
   Changes:
     - Mod setting "allow redeployment" has been removed. You can now always redepoly.
     - Mod setting "easy recipe" has been removed. Now uses the map setting for recipe difficulty.
-  Internal:
+  Technical:
     - Update to factorio base version 1.0
     - Large parts of control stage adapted to use factorio 1.0 API
 ---------------------------------------------------------------------------------------------------
 Version: 1.8.0
 Date: 2020-02-06
-  Internal:
+  Technical:
     - Updated to factorio base version 0.18.x.
   Changes:
     - Mod setting "allow redeployment" is now enabled by default.
@@ -66,7 +79,7 @@ Date: 2019-03-18
   Changes:
     - 0.16: Cranking is now hard-linked to the standard "rotate" key and can not be customized seperately anymore.
     - 0.17: Removed "put into quickbar on startup" mod-option due to base-game change of quickbar paradigm.
-  Internal:
+  Technical:
     - Updated to factorio base version 0.17.x.
     - 0.16: Cranking sound uses play_sound instead of spawning an invisible explosion.
     - 0.17: Out-of-range warning now uses local_flying_text instead of console print.
@@ -105,6 +118,4 @@ Date: 2016-07-12
 Version: 0.0.1
 Date: 0000-00-00
   Todo:
-    - Deprecated old branch on modportal
-    - Updated github repository. Gotta do that every few years ye know... *cough*
-    - readd optional dependency after fixing build script
+    - Nothing at the moment.
