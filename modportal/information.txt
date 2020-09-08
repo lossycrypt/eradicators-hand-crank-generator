@@ -16,7 +16,9 @@ Simply hover your mouse cursor over the HCG and press the key that you use to ro
 # Use it for Low Tech Modpacks or as Modding Tutorial
 
 HCG fits well with low-tech mods and modpacks that require electricity for water pumps.
-The mod source code also contains extensive comments intended as a beginner level modding tutorial. See the FAQ for futher info on that.
+The mod source code also contains extensive comments intended as an intermediate level modding tutorial. See the FAQ for futher info on that or read the [wiki page].
+
+[wiki page]: https://wiki.factorio.com/Tutorial:Inspecting_a_live_mod
 
 ---
 # Power production

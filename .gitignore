@@ -28,3 +28,6 @@
 
 # Block underscore prefixed files
 _*
+
+# But keep special files
+!__init__.lua
