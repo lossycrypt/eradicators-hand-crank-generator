@@ -1,4 +1,0 @@
-﻿You have salvaged a manual emergency generator from your spacecraft. Perfect timing to get cranky!
-
-(Languages: English, Deutsch, 日本語)
-(Contains extensive code comments for aspiring modders.)

@@ -15,7 +15,7 @@
 !.gitignore
 
 # Keep everything in modportal
-!/modportal/**
+!/_modportal/**
 
 # Keep text files
 !*.lua
