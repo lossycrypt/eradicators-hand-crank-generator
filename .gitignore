@@ -23,11 +23,15 @@
 !*.png
 !*.ogg
 
+
 # Block underscore prefixed files
 _*
 
 # Keep everything in modportal
-!/_modportal/**
+
+!/_modportal/
+!/_modportal/
+#!*.txt
 
 # But keep special files
 !__init__.lua
