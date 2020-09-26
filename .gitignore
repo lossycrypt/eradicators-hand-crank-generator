@@ -28,10 +28,10 @@
 _*
 
 # Keep everything in modportal
+#!/_modportal/**/*.gif
+#!/_modportal/*.txt
+#!*.gif
 
-!/_modportal/
-!/_modportal/
-#!*.txt
 
 # But keep special files
 !__init__.lua
