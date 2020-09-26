@@ -14,9 +14,6 @@
 !attribution.txt
 !.gitignore
 
-# Keep everything in modportal
-!/_modportal/**
-
 # Keep text files
 !*.lua
 !*.cfg
@@ -28,6 +25,9 @@
 
 # Block underscore prefixed files
 _*
+
+# Keep everything in modportal
+!/_modportal/**
 
 # But keep special files
 !__init__.lua
