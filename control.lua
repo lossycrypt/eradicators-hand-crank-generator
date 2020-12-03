@@ -261,7 +261,7 @@ local function auto_cranker(e)
 -- This is because handler status is not stored when the game is saved and loaded.
 -- So I have to manually reactivate the handler when the game is loaded, but
 -- ONLY IF it had been active EVEN IF the game had never been saved and loaded but
--- had been running contiously instead. For this the current status of the handler
+-- had been running continuously instead. For this the current status of the handler
 -- has to be stored in global. Because my handler needs additional data, I simply
 -- check if there IS any data to process, and if yes reactivate the handler.
 

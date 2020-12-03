@@ -1,0 +1,12 @@
+﻿# Deprecation Notice!
+
+This mod continues as [Eradicator's Hand Crank Generator Deluxe](https://mods.factorio.com/mod/eradicators-hand-crank-generator)
+
+~~The in-game auto-updater should automatically download the new verison. After that you can delete the old one.~~  
+Old Hand Crank Generators will continue to work in the new verison.
+
+# Final Message
+
+After a transitional period of one month this branch is now permanently marked deprecated. Regrettably this breaks the in-game auto-update workaround and i can't do anything about that. Anyone who hasn't upgraded yet will have to manually download the new branch.
+
+You may rest now, my dear friend.

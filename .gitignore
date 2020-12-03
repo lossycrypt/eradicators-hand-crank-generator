@@ -27,7 +27,7 @@
 # Block underscore prefixed files
 _*
 
-# Keep everything in modportal
+# Keep everything in modportal (why was this broken?)
 !/modportal/**
 
 # But keep special files

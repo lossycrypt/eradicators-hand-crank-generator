@@ -362,7 +362,7 @@ data:extend{{
     --that require() behaves like any other function and returns
     --the result of reading a file. In this case a table of tables,
     --of which I am only interested in a single sub-table.
-    vehicle_impact_sound = require("__base__/prototypes/entity/demo-sounds")['generic_impact'],
+    vehicle_impact_sound = require("__base__/prototypes/entity/sounds")['generic_impact'],
       
     --The sound that is played while the HCG is discharging (=producing energy).
     --The sound for charging is played via control.lua script, but if HCG was a

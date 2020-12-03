@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.10
+Date: 2020-12-03
+  Technical:
+    - Updated info.json factorio_version to 1.1.    
+    - Integrated 1.1 api change: "demo-sounds.lua" was renamed to "sounds.lua"
+---------------------------------------------------------------------------------------------------
 Version: 2.0.9
 Date: 2020-09-04
   Technical:
