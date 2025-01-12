@@ -38,7 +38,7 @@
 
 -- Everytime I need a "name=" I put a prefix before it, so that
 -- Other mods with similar names do not interfere with mine and vice versa.
--- I use "er:" because my name is eradicator, but that's kinda long.
+-- I use "er-" because my name is eradicator, but that's kinda long.
 -- The prefix can be any string you like. I use a second prefix "hcg-"
 -- because I have more than one mod, and this makes it easier to see what
 -- belongs where.
@@ -46,7 +46,7 @@
 -- This allows me to read settings values without repeating my prefix
 -- all the time.
 local function config(name)
-  return settings.startup['er:hcg-'..name].value
+  return settings.startup['er-hcg-'..name].value
   end
 
 --And these two make defining common file paths much shorter.
@@ -71,7 +71,7 @@ data:extend({
   -- This is the hotkey that will later be used to "crank" the generator.
   {
     type                = 'custom-input'    ,
-    name                = 'er:hcg-crank-key',
+    name                = 'er-hcg-crank-key',
     
     -- I "link" this hotkey to a vanilla hotkey, so that
     -- the player does not have to remember an extra hotkey.
@@ -102,7 +102,7 @@ data:extend({
   -- This is the item that is used to place the entity on the map.
   {
     type = 'item',
-    name = 'er:hcg-item',
+    name = 'er-hcg-item',
     
     -- In lua any function that is called with exactly one argument
     -- can be written without () brackets if the argument is a string or table.
@@ -120,7 +120,7 @@ data:extend({
     -- often have the same name, but this is not required.
     -- For demonstration purposes I will use explicit
     -- names here.
-    place_result = 'er:hcg-entity',
+    place_result = 'er-hcg-entity',
     stack_size   =  50            ,
     },
 
@@ -142,66 +142,42 @@ if config 'recipe-enabled' then data:extend({
   -- This is the recipe that can craft the item.
   {
     type = 'recipe',
-    name = 'er:hcg-recipe',
-    
-    -- Recipes can have up to two different difficulties.
-    -- Expensive is usually only used in "marathon" games.
-    
-    normal = {
-      -- This only changes if the recipe is available from the start.
-      -- Disabled recipes can later be unlocked by researching a technology.
-      enabled = false,
-      
-      -- By the way: I put a lot of spaces everywhere so that the content of
-      -- tables aligns better because I find it easier to read, but this is not nessecary.
-      ingredients = {
-        {'iron-gear-wheel'    ,10},
-        {'electronic-circuit' , 2},
-        {'copper-cable'       ,10},
-        {'iron-plate'         , 5},
-        {'copper-plate'       , 5},
-        },
+    name = 'er-hcg-recipe',
 
-      result = 'er:hcg-item',
-      
-      -- Recipes always produce one item if nothing else is defined.
-      -- result_count = 1,
-
-      -- This is the TIME in seconds at crafting speed 1 to craft the item.
-      -- So handcrafting a HCG will take 30 seconds, and an assembling-machine-1
-      -- with only 0.5 crafting speed would need 60 seconds.
-      -- Despite being called "energy" it does not affect the power consumed by
-      -- assembline machines.
-      energy_required = 30,
+    -- Give the recipe the same name as the entity.
+    localised_name = {'entity-name.er-hcg-entity'},
+    
+    -- This only changes if the recipe is available from the start.
+    -- Disabled recipes can later be unlocked by researching a technology.
+    enabled = false,
+    
+    -- By the way: I put a lot of spaces everywhere so that the content of
+    -- tables aligns better because I find it easier to read, but this is not nessecary.
+    ingredients = {
+      {type = 'item', name = 'iron-gear-wheel'    , amount = 10},
+      {type = 'item', name = 'electronic-circuit' , amount = 2},
+      {type = 'item', name = 'copper-cable'       , amount = 10},
+      {type = 'item', name = 'iron-plate'         , amount = 5},
+      {type = 'item', name = 'copper-plate'       , amount = 5},
       },
 
-    -- Here I define the recipe again, but with slightly different ingredients.
-    -- Most recipes do not need to declare expensive= at all. By default every recipe
-    -- will use the normal= cost cost on both difficulties.
-    expensive = {
-      enabled = false,
-      
-      -- The order of item ingredients does not matter.
-      -- The game sorts them alphabetiacally later.
-      ingredients = {
-        {'electric-engine-unit', 2},
-        {'electronic-circuit'  , 2},
-        {'advanced-circuit'    , 1},
-        {'copper-cable'        ,10},
-        {'steel-plate'         , 5},
-        },
+    results = {{type = 'item', name = 'er-hcg-item', amount = 1}},
     
-      result = 'er:hcg-item',
-      energy_required = 90,
-      
-      },
+    -- Recipes always produce one item if nothing else is defined.
+    -- result_count = 1,
 
-    },
+    -- This is the TIME in seconds at crafting speed 1 to craft the item.
+    -- So handcrafting a HCG will take 30 seconds, and an assembling-machine-1
+    -- with only 0.5 crafting speed would need 60 seconds.
+    -- Despite being called "energy" it does not affect the power consumed by
+    -- assembline machines.
+    energy_required = 30,
+  },
     
     
   -- This is the technology that will unlock the recipe.
   {
-    name = 'er:hcg-technology',
+    name = 'er-hcg-technology',
     type = 'technology',
     
     -- Technology icons are quite large, so it is important
@@ -224,7 +200,7 @@ if config 'recipe-enabled' then data:extend({
       
       effects = {
         { type   = 'unlock-recipe',
-          recipe = 'er:hcg-recipe'
+          recipe = 'er-hcg-recipe'
           },
           
         -- The "nothing" effect is used to implement research effects
@@ -233,7 +209,7 @@ if config 'recipe-enabled' then data:extend({
         -- knows what is going to happen. The actual effect has to be implemented
         -- by the mod in control stage.
         { type = 'nothing',
-          effect_description = {'er:hcg.auto-cranking'},
+          effect_description = {'er-hcg.auto-cranking'},
           },
           
         },
@@ -257,7 +233,7 @@ if config 'recipe-enabled' then data:extend({
   
 
   
--- Sometimes it's nessecary to prepare data outside of a prototype definition.
+-- Sometimes it's necessary to prepare data outside of a prototype definition.
 -- Because the HCG should be connectable to the circuit network the engine needs
 -- to know where the cables should go.
 
@@ -276,7 +252,7 @@ local no_base_connector_template = util.table.deepcopy(universal_connector_templ
 no_base_connector_template. connector_main   = nil --remove base
 no_base_connector_template. connector_shadow = nil --remove base shadow
   
-local connector = circuit_connector_definitions.create(no_base_connector_template,{{
+local connector = circuit_connector_definitions.create_vector(no_base_connector_template,{{
   -- The "variation" determines in which direction the connector is drawn. I look
   -- at the file "factorio\data\base\graphics\entity\circuit-connector\hr-ccm-universal-04a-base-sequence.png"
   -- and count from the left top corner starting with 0 to get the angle I want.
@@ -299,16 +275,19 @@ data:extend{{
   -- of a vanilla entity and remove / change the bits you don't need.
   
     type      = 'accumulator'  ,
-    name      = 'er:hcg-entity',
-    flags     = {'placeable-neutral', 'player-creation'},
+    name      = 'er-hcg-entity',
     icon      = sprite 'hcg-item.png',
     icon_size = 64,
+
+    -- The not-rotatable flag here gets rid of the in-game error message saying "This
+    -- cannot be rotated".
+    flags     = {'placeable-neutral', 'player-creation', 'not-rotatable'},
 
     -- In earlier versions the HCG could not be picked up once placed - because it was damaged
     -- during the crash landing. But some people complained that that was too inconvenient!
     minable = {
       mining_time = 0.5,
-      result      = 'er:hcg-item'
+      result      = 'er-hcg-item'
       },
     
     max_health = 150,
@@ -380,51 +359,53 @@ data:extend{{
     -- This sprite sheet contains all frames of the animation, so i
     -- have to tell the engine how large each frame is, and how many
     -- frames there are in total.
-    discharge_animation = {
-      filename        = sprite 'hcg-animation.png',
-      width           = 128,
-      height          = 128,
-      
-      --The sprite sheet has 3 rows with 8 pictures each. So there
-      --are 24 frames in total. But the code is much nicer to read
-      --if I just write this as a formula.
-      line_length     =   8,
-      frame_count     = 3*8,
-      
-      -- Originally vanilla graphics had 32 pixels per 1 tile. But later
-      -- High resolution graphics with 64 pixels per tile were added.
-      -- The HCG is rendered in high resolution, so it has to be shown at half
-      -- the size to fit with the original 32 pixel standard.
-      scale           = 0.5,
-      
-      -- Shift is used when the center of a picture is
-      -- not the visual center of the entity. I.e. because
-      -- the picture also contains a shadow. Shift values
-      -- are given in tiles.
-      shift           = {0.5, -0.475},
-      
-      -- By using a lower animation speed I can have a slow animation
-      -- with fewer frames than i'd need at full speed.
-      animation_speed = 0.25, 
-      },
-      
-    -- The rotating "dis/charge" animation should stop immedeatly if
-    -- the player stops cranking/the hcg is empty. So I set this to one tick.
-    charge_cooldown    = 1,
-    discharge_cooldown = 1,
-    
-    -- Accumulator type entities need a single still image
-    -- for when they're not dis-/charging. But I can just recycle
-    -- the first frame of the animation!
-    picture = {
-      filename = sprite 'hcg-animation.png',
-      priority = 'extra-high',
-      width    = 128,
-      height   = 128,
-      shift    = {0.5, -0.475},
-      scale    = 0.5,
-      },
+    chargable_graphics = {
+      discharge_animation = {
+        filename        = sprite 'hcg-animation.png',
+        width           = 128,
+        height          = 128,
         
+        --The sprite sheet has 3 rows with 8 pictures each. So there
+        --are 24 frames in total. But the code is much nicer to read
+        --if I just write this as a formula.
+        line_length     =   8,
+        frame_count     = 3*8,
+        
+        -- Originally vanilla graphics had 32 pixels per 1 tile. But later
+        -- High resolution graphics with 64 pixels per tile were added.
+        -- The HCG is rendered in high resolution, so it has to be shown at half
+        -- the size to fit with the original 32 pixel standard.
+        scale           = 0.5,
+        
+        -- Shift is used when the center of a picture is
+        -- not the visual center of the entity. I.e. because
+        -- the picture also contains a shadow. Shift values
+        -- are given in tiles.
+        shift           = {0.5, -0.475},
+        
+        -- By using a lower animation speed I can have a slow animation
+        -- with fewer frames than i'd need at full speed.
+        animation_speed = 0.25, 
+        },
+        
+        -- The rotating "dis/charge" animation should stop immedeatly if
+        -- the player stops cranking/the hcg is empty. So I set this to one tick.
+        charge_cooldown    = 1,
+        discharge_cooldown = 1,
+      
+      -- Accumulator type entities need a single still image
+      -- for when they're not dis-/charging. But I can just recycle
+      -- the first frame of the animation!
+      picture = {
+        filename = sprite 'hcg-animation.png',
+        priority = 'extra-high',
+        width    = 128,
+        height   = 128,
+        shift    = {0.5, -0.475},
+        scale    = 0.5,
+        },
+      },
+      
     -- Some people told me that they'd like to use the HCG as a timer
     -- so I added circuit connections. This uses a built-in variable
     -- to match vanilla standard.
@@ -436,7 +417,7 @@ data:extend{{
 
     -- For completition I assign a default signal like all
     -- vanilla entities do.
-    default_output_signal = {type='item', name='er:hcg-item'},
+    default_output_signal = {type='item', name='er-hcg-item'},
     
   }}
 
@@ -468,7 +449,7 @@ data:extend{{
 
 if mods['aai-industry'] and data.raw.technology['electricity'] then
   if config 'recipe-enabled' then
-    local hcg_technology = data.raw.technology['er:hcg-technology']  
+    local hcg_technology = data.raw.technology['er-hcg-technology']  
     hcg_technology.prerequisites = {'electricity'}
     hcg_technology.unit.count = 70
     hcg_technology.unit.time  = 15
