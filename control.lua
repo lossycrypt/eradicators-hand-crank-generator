@@ -92,22 +92,22 @@ local function add_item_to_freeplay(interface_method,new_items)
 local function hcg_initializer()
 
   -- When a mod needs to store data permanently then it needs
-  -- to be stored in a table called "global". Despite the name
-  -- no other mod can access this data.
+  -- to be stored in a table called "storage". No other mod can
+  -- access this data.
   
   -- Because I don't want players to be able to crank the HCG
   -- as fast as they can hit the button I need to store the time when
   -- they crank successfully. For that I will need to store
   -- a permanent table. Because hcg_initializer() will run several times
   -- the "or" construct preserves old data if there is any.
-  global.last_crank_tick = global.last_crank_tick or {}
+  storage.last_crank_tick = storage.last_crank_tick or {}
   
   -- If the scenario is freeplay-compatible then
   -- every player starts with one HCG. The first player
   -- will have to salvage it from the wreckage.
   if has_expected_freeplay_interface() then
-    add_item_to_freeplay('created_items',{['er:hcg-item']=1})
-    add_item_to_freeplay('debris_items' ,{['er:hcg-item']=1})
+    add_item_to_freeplay('created_items',{['er-hcg']=1})
+    add_item_to_freeplay('debris_items' ,{['er-hcg']=1})
 
   else
     -- If the scenario does NOT have a freeplay-compatible remote interface
@@ -126,13 +126,13 @@ local function hcg_initializer()
 
     for _,p in pairs(game.connected_players) do
       if p.admin then
-        p.print({'er:hcg.freeplay-interface-not-found'})
+        p.print({'er-hcg.freeplay-interface-not-found'})
         end
       end
 
     -- In case nobody is on the server when this happens i'm also going to
     -- print the message to the log file.
-    log({'er:hcg.freeplay-interface-not-found'})
+    log({'er-hcg.freeplay-interface-not-found'})
 
     end
   end
@@ -156,7 +156,7 @@ script.on_configuration_changed(hcg_initializer)
 -- because those can change anytime. Lucky for me "startup" settings never change
 -- during control stage so I don't need to worry about that.
 local function getconfig(name)
-  return settings.startup['er:hcg-'..name].value
+  return settings.startup['er-hcg-'..name].value
   end
 local config = {
   crank_delay_in_ticks =
@@ -182,10 +182,10 @@ local function manhattan_distance(p,hcg)
 -- The function also returns true or false to make it useable 
 -- as "if try_to_crank() then" later.
 local function try_to_crank(tick,p,hcg)
-  local last_crank_tick = global.last_crank_tick[hcg.unit_number] or 0
+  local last_crank_tick = storage.last_crank_tick[hcg.unit_number] or 0
   if last_crank_tick + config.crank_delay_in_ticks <= tick then
     if manhattan_distance(p,hcg) < 2 then
-      global.last_crank_tick[hcg.unit_number] = tick
+      storage.last_crank_tick[hcg.unit_number] = tick
       hcg.energy = hcg.energy + config.power_per_crank_in_watts
       hcg.surface.play_sound{
         path = 'utility/crafting_finished',
@@ -196,7 +196,7 @@ local function try_to_crank(tick,p,hcg)
       
     else
       p.create_local_flying_text{
-        text = {"er:hcg.too-far-away"},
+        text = {"er-hcg.too-far-away"},
         position = {hcg.position.x, hcg.position.y-0.5},
         color = nil,
         time_to_live = 90,
@@ -240,17 +240,17 @@ local function try_to_crank(tick,p,hcg)
 -- the table empty.
 
 local function auto_cranker(e)
-  for pindex,data in pairs(global.auto_crankers) do
+  for pindex,data in pairs(storage.auto_crankers) do
     if not (
      data.p.valid
      and data.hcg.valid
      and data.p.character
      and try_to_crank(e.tick,data.p,data.hcg)
      ) then
-      global.auto_crankers[pindex] = nil
+      storage.auto_crankers[pindex] = nil
       end
-    if table_size(global.auto_crankers) == 0 then
-      global.auto_crankers = nil
+    if table_size(storage.auto_crankers) == 0 then
+      storage.auto_crankers = nil
       script.on_nth_tick(config.crank_delay_in_ticks,nil)
       end
     end
@@ -262,11 +262,11 @@ local function auto_cranker(e)
 -- So I have to manually reactivate the handler when the game is loaded, but
 -- ONLY IF it had been active EVEN IF the game had never been saved and loaded but
 -- had been running continuously instead. For this the current status of the handler
--- has to be stored in global. Because my handler needs additional data, I simply
+-- has to be stored in storage. Because my handler needs additional data, I simply
 -- check if there IS any data to process, and if yes reactivate the handler.
 
 local function try_activate_auto_cranker()
-  if global.auto_crankers ~= nil then
+  if storage.auto_crankers ~= nil then
     script.on_nth_tick(config.crank_delay_in_ticks,auto_cranker)
     end
   end
@@ -279,17 +279,17 @@ script.on_load(try_activate_auto_cranker)
 -- if the player starts to crank a different HCG the data for the previous one
 -- will simply be overwritten. I also store the references to the player
 -- and HCG entity so that they are easier to access in the on_nth_tick handler.
--- Because global.auto_crankers is nil when there is nothing to do I also have
+-- Because storage.auto_crankers is nil when there is nothing to do I also have
 -- to create a new table if this player is the only one currently auto-cranking.
 -- If there were other players already auto-cranking then the handler is already
 -- running and does not need to be activated again.
   
 local function add_auto_cranker(p,hcg)
   local new_cranker = {p=p,hcg=hcg}
-  if global.auto_crankers ~= nil then
-    global.auto_crankers[p.index] = new_cranker
+  if storage.auto_crankers ~= nil then
+    storage.auto_crankers[p.index] = new_cranker
   else
-    global.auto_crankers = {[p.index] = new_cranker}
+    storage.auto_crankers = {[p.index] = new_cranker}
     try_activate_auto_cranker()
     end
   end
@@ -306,11 +306,14 @@ local function add_auto_cranker(p,hcg)
 -- It has to check if the players mouse is actually hovering over an HCG,
 -- and it also enforces the configured delay between crankings by storing
 -- the current tick if cranking was successful.
-script.on_event('er:hcg-crank-key',function(e)
+script.on_event('er-hcg-crank-key',function(e)
   local p = game.players[e.player_index]
   local selected_entity = p.selected
-  if selected_entity and (selected_entity.name == 'er:hcg-entity') then
-    if not p.force.technologies['er:hcg-technology'].researched then
+  if selected_entity and (selected_entity.name == 'er-hcg') then
+    -- If the auto-crank technology is disabled or not researched, then
+    -- crank manually.
+    if not settings.startup["er-hcg-recipe-enabled"].value
+      or not p.force.technologies['er-hcg-technology'].researched then
       try_to_crank(e.tick,p,selected_entity)
     else
       -- If the players team ("force") has researched the technology
