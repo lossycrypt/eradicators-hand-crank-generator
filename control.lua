@@ -106,8 +106,8 @@ local function hcg_initializer()
   -- every player starts with one HCG. The first player
   -- will have to salvage it from the wreckage.
   if has_expected_freeplay_interface() then
-    add_item_to_freeplay('created_items',{['er-hcg-item']=1})
-    add_item_to_freeplay('debris_items' ,{['er-hcg-item']=1})
+    add_item_to_freeplay('created_items',{['er-hcg']=1})
+    add_item_to_freeplay('debris_items' ,{['er-hcg']=1})
 
   else
     -- If the scenario does NOT have a freeplay-compatible remote interface
@@ -309,7 +309,7 @@ local function add_auto_cranker(p,hcg)
 script.on_event('er-hcg-crank-key',function(e)
   local p = game.players[e.player_index]
   local selected_entity = p.selected
-  if selected_entity and (selected_entity.name == 'er-hcg-entity') then
+  if selected_entity and (selected_entity.name == 'er-hcg') then
     -- If the auto-crank technology is disabled or not researched, then
     -- crank manually.
     if not settings.startup["er-hcg-recipe-enabled"].value

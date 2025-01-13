@@ -102,7 +102,7 @@ data:extend({
   -- This is the item that is used to place the entity on the map.
   {
     type = 'item',
-    name = 'er-hcg-item',
+    name = 'er-hcg',
     
     -- In lua any function that is called with exactly one argument
     -- can be written without () brackets if the argument is a string or table.
@@ -120,8 +120,11 @@ data:extend({
     -- often have the same name, but this is not required.
     -- For demonstration purposes I will use explicit
     -- names here.
-    place_result = 'er-hcg-entity',
-    stack_size   =  50            ,
+    place_result = 'er-hcg',
+    stack_size   =  50     ,
+
+    -- The weight (in grams) determines how many fit on a rocket.
+    weight = 1000,
     },
 
   })
@@ -142,10 +145,7 @@ if config 'recipe-enabled' then data:extend({
   -- This is the recipe that can craft the item.
   {
     type = 'recipe',
-    name = 'er-hcg-recipe',
-
-    -- Give the recipe the same name as the entity.
-    localised_name = {'entity-name.er-hcg-entity'},
+    name = 'er-hcg',
     
     -- This only changes if the recipe is available from the start.
     -- Disabled recipes can later be unlocked by researching a technology.
@@ -161,7 +161,7 @@ if config 'recipe-enabled' then data:extend({
       {type = 'item', name = 'copper-plate'       , amount = 5},
       },
 
-    results = {{type = 'item', name = 'er-hcg-item', amount = 1}},
+    results = {{type = 'item', name = 'er-hcg', amount = 1}},
     
     -- Recipes always produce one item if nothing else is defined.
     -- result_count = 1,
@@ -200,7 +200,7 @@ if config 'recipe-enabled' then data:extend({
       
       effects = {
         { type   = 'unlock-recipe',
-          recipe = 'er-hcg-recipe'
+          recipe = 'er-hcg'
           },
           
         -- The "nothing" effect is used to implement research effects
@@ -275,7 +275,7 @@ data:extend{{
   -- of a vanilla entity and remove / change the bits you don't need.
   
     type      = 'accumulator'  ,
-    name      = 'er-hcg-entity',
+    name      = 'er-hcg',
     icon      = sprite 'hcg-item.png',
     icon_size = 64,
 
@@ -287,7 +287,7 @@ data:extend{{
     -- during the crash landing. But some people complained that that was too inconvenient!
     minable = {
       mining_time = 0.5,
-      result      = 'er-hcg-item'
+      result      = 'er-hcg'
       },
     
     max_health = 150,
@@ -417,7 +417,7 @@ data:extend{{
 
     -- For completition I assign a default signal like all
     -- vanilla entities do.
-    default_output_signal = {type='item', name='er-hcg-item'},
+    default_output_signal = {type='item', name='er-hcg'},
     
   }}
 
