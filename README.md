@@ -6,7 +6,8 @@ but also fits well into modpacks with delayed electricity availability.
 
 # License:
   
-  CC BY-ND 4.0 (Factorio license applies to factorio assets)  
+  ~~CC BY-ND 4.0~~ (Factorio license applies to factorio assets)
+  As of June 2025 this mod is in the public domain under The Unlicense regardless of what any of the old files say.
 
 # Languages
 
